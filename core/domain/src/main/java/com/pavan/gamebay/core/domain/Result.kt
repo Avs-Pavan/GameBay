@@ -1,5 +1,8 @@
 package com.pavan.gamebay.core.domain
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
 /**
  * Represents a result of an operation that can either be a [Success] with a value of type [D]
  * or an [Error] with an error of type [E].
@@ -63,5 +66,99 @@ suspend inline fun <T, R> Result<T, MError>.map(crossinline transform: suspend (
     return when (this) {
         is Result.Success -> Result.Success(transform(data))
         is Result.Error -> Result.Error(error)
+    }
+}
+
+
+/**
+ * Validates the data of a [Result.Success] using the given validation block.
+ * Supports fail-fast or regular validation modes.
+ *
+ * @param failFast If true, stops at the first validation failure; if false, runs all validations and collects errors.
+ * @param block The DSL block defining validation rules.
+ * @return The original [Result] if all validations pass, or a [Result.Error] with [ValidationFailedError] or [MultipleValidationErrors].
+ */
+suspend inline fun <T> Result<T, MError>.validate(
+    failFast: Boolean = false,
+    crossinline block: suspend ValidationContext<T>.() -> Unit
+): Result<T, MError> {
+    return when (this) {
+        is Result.Success -> {
+            val context =
+                if (failFast) FailFastValidationContext(data) else RegularValidationContext(data)
+            context.block()
+            context.getResult()
+        }
+
+        is Result.Error -> this
+    }
+}
+
+
+/**
+ * Validates the data of a [Result.Success] using the given validation blocks.
+ * Supports fail-fast or regular validation modes.
+ *
+ * @param blocks The validation blocks to apply to the data.
+ * @return The original [Result] if all validations pass, or a [Result.Error] with [ValidationFailedError] or [MultipleValidationErrors].
+ */
+suspend inline fun <T> Result<T, MError>.validate(
+    vararg blocks: ValidationBlock<T>
+): Result<T, MError> {
+    return when (this) {
+        is Result.Success -> {
+            val allErrors = mutableListOf<ValidationFailedError>()
+            for (block in blocks) {
+                val context =
+                    if (block.failFast) FailFastValidationContext(data) else RegularValidationContext(
+                        data
+                    )
+                block.block(context)
+                val result = context.getResult()
+                if (result is Result.Error) {
+                    when (val error = result.error) {
+                        is ValidationFailedError -> allErrors.add(error)
+                        is MultipleValidationErrors -> allErrors.addAll(error.errors)
+                        else -> return result // Non-validation error, propagate immediately
+                    }
+                    if (block.failFast) break // Stop after fail-fast block
+                }
+            }
+            if (allErrors.isEmpty()) this
+            else Result.Error(
+                if (allErrors.size == 1) allErrors.first()
+                else MultipleValidationErrors(allErrors)
+            )
+        }
+
+        is Result.Error -> this
+    }
+}
+
+
+/**
+ * Intercepts a [Flow] of [Result] and validates each [Result.Success] emission using the given validation block.
+ *
+ * @param failFast If true, stops at the first validation failure; if false, runs all validations and collects errors.
+ * @param block The DSL block defining validation rules for the [Result.Success] data.
+ * @return A new [Flow] with validated results, transforming failed validations into [Result.Error].
+ */
+inline fun <T> Flow<Result<T, MError>>.validate(
+    failFast: Boolean = false,
+    crossinline block: suspend ValidationContext<T>.() -> Unit
+): Flow<Result<T, MError>> {
+    return this.map { result ->
+        when (result) {
+            is Result.Success -> {
+                val context =
+                    if (failFast) FailFastValidationContext(result.data) else RegularValidationContext(
+                        result.data
+                    )
+                context.block()
+                context.getResult()
+            }
+
+            is Result.Error -> result // Propagate errors unchanged
+        }
     }
 }

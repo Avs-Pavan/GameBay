@@ -12,6 +12,9 @@ dependencies {
      * Added to support dependency injection in non Android modules
      * */
     api(libs.java.inject)
+
+    // Kotlin coroutines core library
+    api(libs.kotlinx.coroutines.core)
 }
 
 kotlin {
