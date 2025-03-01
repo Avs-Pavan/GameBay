@@ -23,3 +23,4 @@ rootProject.name = "GameBay"
 include(":app")
 include(":core:presentation:designsystem")
 include(":core:domain")
+include(":core:data")
