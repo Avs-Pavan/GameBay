@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GameBay"
 include(":app")
- 
+include(":core:presentation:designsystem")
