@@ -49,3 +49,19 @@ suspend inline fun <T> Result<T, MError>.onError(
     }
     return this
 }
+
+
+/**
+ * Transforms the data of a [Result.Success] using the given [transform] function.
+ * If the result is a [Result.Error], the error is propagated unchanged.
+ *
+ * @param transform The function to transform the data of a [Result.Success].
+ * @return A new [Result] with the transformed data if the original result was a [Result.Success],
+ *         or the original error if the result was a [Result.Error].
+ */
+suspend inline fun <T, R> Result<T, MError>.map(crossinline transform: suspend (T) -> R): Result<R, MError> {
+    return when (this) {
+        is Result.Success -> Result.Success(transform(data))
+        is Result.Error -> Result.Error(error)
+    }
+}
