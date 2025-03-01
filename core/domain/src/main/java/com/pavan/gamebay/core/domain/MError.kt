@@ -28,3 +28,23 @@ class GenericError(val message: String) : MError
  * @param message The error message describing the data issue.
  */
 class DataError(val message: String) : MError
+
+/**
+ * Represents an error that occurs when validation fails.
+ *
+ * @param message The error message describing the validation failure.
+ */
+data class ValidationFailedError(val message: String) : MError
+
+/**
+ * Represents multiple validation errors.
+ *
+ * @param errors A list of `ValidationFailedError` instances.
+ */
+data class MultipleValidationErrors(val errors: List<ValidationFailedError>) : MError {
+    /**
+     * A concatenated message of all validation error messages.
+     */
+    val message: String
+        get() = errors.joinToString(", ") { it.message }
+}
