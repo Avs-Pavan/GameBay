@@ -13,5 +13,5 @@ fun interface IMapper<in I, out O> {
      * @param input the input value
      * @return the mapped output value
      */
-    fun map(input: I): O
+    suspend fun map(input: I): O
 }

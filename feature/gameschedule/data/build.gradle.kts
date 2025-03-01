@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.ksp)
-    alias(libs.plugins.hilt.android)
 }
 
 android {
-    namespace = "com.pavan.gamebay.core.data"
+    namespace = "com.pavan.gamebay.feature.gameschedule.data"
     compileSdk = 35
 
     defaultConfig {
@@ -17,14 +15,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -40,32 +30,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        buildConfig = true
-    }
 }
 
 dependencies {
 
-    api(project(":core:domain"))
-    api(libs.androidx.core.ktx)
-
-    // Hilt
-    api(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
-
-    // Retrofit
-    api(libs.retrofit)
-    api(libs.retrofit.converter.gson)
-    api(libs.retrofit.logging.interceptor)
-
-    // Room DB
-    api(libs.androidx.room.runtime)
-    api(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-
+    implementation(project(":feature:gameschedule:domain"))
+    implementation(project(":core:data"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
