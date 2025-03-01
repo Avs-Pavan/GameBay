@@ -278,4 +278,7 @@ DerivedData/
 /*.gcno
 keys.properties
 
-*.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/vcs.xml

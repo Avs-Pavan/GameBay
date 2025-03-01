@@ -15,6 +15,7 @@ retrofit = "2.11.0"
 room = "2.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
+jetbrainsKotlinJvm = "2.0.21"
 
 
 [libraries]
@@ -43,6 +44,8 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "daggerHilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0" }
+java-inject = { group = "javax.inject", name = "javax.inject", version = "1" }
+
 
 # Retrofit dependencies for networking
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -67,3 +70,4 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHil
 
 # Plugin for Kotlin Symbol Processing (KSP), a tool for generating Kotlin code at compile time
 kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.27" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
