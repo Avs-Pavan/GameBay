@@ -7,5 +7,5 @@ object CoreDomainConstants {
     /**
      * Base URL for the API.
      */
-    const val BASE_API_URL: String = "http://files.yinzcam.com.s3.amazonaws.com"
+    const val BASE_API_URL: String = "http://files.yinzcam.com.s3.amazonaws.com/"
 }
