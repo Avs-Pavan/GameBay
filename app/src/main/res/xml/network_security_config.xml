@@ -1,0 +1,5 @@
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">files.yinzcam.com.s3.amazonaws.com</domain>
+    </domain-config>
+</network-security-config>
