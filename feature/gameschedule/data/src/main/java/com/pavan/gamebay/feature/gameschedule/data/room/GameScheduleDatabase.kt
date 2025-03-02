@@ -21,7 +21,7 @@ import kotlin.jvm.java
         GameEntity::class,
         TeamEntity::class
     ],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class GameScheduleDatabase : RoomDatabase() {
@@ -39,7 +39,8 @@ abstract class GameScheduleDatabase : RoomDatabase() {
                     context.applicationContext,
                     GameScheduleDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

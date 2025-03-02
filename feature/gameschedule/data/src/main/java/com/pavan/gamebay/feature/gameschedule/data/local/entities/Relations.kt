@@ -4,26 +4,21 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class ScheduleWithDetails(
-    @Embedded val schedule: ScheduleEntity,
+    @Embedded val schedule: ScheduleEntity?,
     @Relation(
         entity = GameSectionEntity::class,
-        parentColumn = "defaultGameId",
+        parentColumn = "id",
         entityColumn = "scheduleId"
     )
-    val gameSections: List<GameSectionWithGames>
+    val gameSections: List<GameSectionWithGames> = emptyList()
 )
 
 data class GameSectionWithGames(
-    @Embedded val gameSection: GameSectionEntity,
+    @Embedded val gameSection: GameSectionEntity?,
     @Relation(
         entity = GameEntity::class,
-        parentColumn = "id",
-        entityColumn = "gameSectionId"
+        parentColumn = "heading",
+        entityColumn = "gameSectionHeading"
     )
-    val games: List<GameWithOpponent>
-)
-
-data class GameWithOpponent(
-    @Embedded val game: GameEntity,
-    @Embedded(prefix = "opponent_") val opponent: TeamEntity?
+    val games: List<GameEntity> = emptyList()
 )

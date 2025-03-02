@@ -2,6 +2,7 @@ package com.pavan.gamebay.feature.gameschedule.data.di
 
 import com.pavan.gamebay.core.domain.IMapper
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.ScheduleEntity
+import com.pavan.gamebay.feature.gameschedule.data.local.entities.ScheduleWithDetails
 import com.pavan.gamebay.feature.gameschedule.data.local.mapper.GameScheduleRoomMapper
 import com.pavan.gamebay.feature.gameschedule.data.remote.mapper.GameScheduleRemoteDataMapper
 import com.pavan.gamebay.feature.gameschedule.data.remote.model.ScheduleResponse
@@ -28,13 +29,13 @@ abstract class GameScheduleBindModule {
     @Singleton
     abstract fun bindGameScheduleRoomMapper(
         gameScheduleRoomMapperImpl: GameScheduleRoomMapper
-    ): IMapper<ScheduleEntity, Schedule>
+    ): IMapper<ScheduleWithDetails, Schedule>
 
 
     @Binds
     @Singleton
     abstract fun bindGameScheduleRemoteDataMapper(
         gameScheduleRemoteDataMapperImpl: GameScheduleRemoteDataMapper
-    ): IMapper<ScheduleResponse, ScheduleEntity>
+    ): IMapper<ScheduleResponse, ScheduleWithDetails>
 
 }

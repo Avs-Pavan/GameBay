@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
@@ -7,17 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.pavan.gamebay"
+    namespace = "com.pavan.gamebay.feature.gameschedule.presentation"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.pavan.gamebay"
         minSdk = 21
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -43,14 +40,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core:presentation:designsystem"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:data"))
+    api(project(":core:presentation:designsystem"))
+    api(project(":feature:gameschedule:domain"))
 
-
-    implementation(project(":feature:gameschedule:presentation"))
-    implementation(project(":feature:gameschedule:domain"))
-    implementation(project(":feature:gameschedule:data"))
 
 
     // Navigation
@@ -72,8 +64,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
