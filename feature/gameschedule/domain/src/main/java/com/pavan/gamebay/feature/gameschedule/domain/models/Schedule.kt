@@ -9,7 +9,7 @@ data class Schedule(
 
 data class GameSection(
     val heading: String,
-    val game: List<Game>
+    val games: List<Game>
 )
 
 data class Team(
@@ -27,6 +27,7 @@ data class Team(
 data class Game(
     val id: Long,
     val week: String,
+    val label: String,
     val gameState: String,
     val tv: String,
     val radio: String,

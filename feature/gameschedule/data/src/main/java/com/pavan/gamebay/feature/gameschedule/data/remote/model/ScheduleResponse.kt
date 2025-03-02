@@ -22,6 +22,8 @@ data class GameSectionResponse(
 data class GameResponse(
     @SerializedName("Week")
     val week: String? = null,
+    @SerializedName("Label")
+    val label: String? = null,
     @SerializedName("TV")
     val tv: String? = null,
     @SerializedName("Radio")

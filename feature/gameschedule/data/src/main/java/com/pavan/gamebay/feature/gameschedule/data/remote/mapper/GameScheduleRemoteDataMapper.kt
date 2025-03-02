@@ -56,6 +56,7 @@ class GameScheduleRemoteDataMapper @Inject constructor(
     private fun GameResponse.toEntity(): GameEntity {
         return GameEntity(
             week = week ?: "",
+            label = label ?: "",
             tv = tv ?: "",
             radio = radio ?: "",
             wlt = wlt ?: "",

@@ -1,6 +1,5 @@
 package com.pavan.gamebay.feature.gameschedule.presentation.screens.components.gamesection
 
-import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,7 +46,7 @@ fun GameSectionUI(
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }
-        gameSectionUIModel.games.forEachIndexed { index, game ->
+        gameSectionUIModel.games.forEach { game ->
             GameCardUI(
                 gameModel = game,
                 modifier = Modifier
@@ -56,9 +55,7 @@ fun GameSectionUI(
             ) { gameCardUIEvents ->
                 onEvent(gameCardUIEvents)
             }
-//            if (index < gameSectionUIModel.games.size - 1) {
-//                HorizontalDivider()
-//            }
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
         }
     }
 }

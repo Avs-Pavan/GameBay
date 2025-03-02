@@ -21,7 +21,7 @@ import kotlin.jvm.java
         GameEntity::class,
         TeamEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class GameScheduleDatabase : RoomDatabase() {

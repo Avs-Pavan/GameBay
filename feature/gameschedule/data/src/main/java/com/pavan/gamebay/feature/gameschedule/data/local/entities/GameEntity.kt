@@ -27,6 +27,7 @@ data class GameEntity(
     @PrimaryKey val id: Long = 0,
     val gameSectionHeading: String = "",
     val week: String = "",
+    val label: String = "",
     val tv: String = "",
     val radio: String = "",
     val wlt: String = "",

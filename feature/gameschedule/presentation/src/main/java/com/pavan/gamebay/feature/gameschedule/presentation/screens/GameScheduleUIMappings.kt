@@ -11,7 +11,7 @@ import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.ga
 fun GameSection.toUIModel(team: Team): GameSectionUIModel {
     return GameSectionUIModel(
         heading = heading,
-        games = game.map { it.toUIModel(team) }
+        games = games.sortedBy { it.label.toInt() }.map { it.toUIModel(team) }
     )
 }
 

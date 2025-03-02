@@ -1,5 +1,6 @@
 package com.pavan.gamebay.feature.gameschedule.data.local.mapper
 
+import android.R.attr.label
 import com.pavan.gamebay.core.domain.DefaultDispatcher
 import com.pavan.gamebay.core.domain.IMapper
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameEntity
@@ -34,7 +35,7 @@ class GameScheduleRoomMapper @Inject constructor(
 
     private fun GameSectionWithGames.toDomain() = GameSection(
         heading = this.gameSection?.heading ?: "",
-        game = this.games.map {
+        games = this.games.map {
             it.toDomain()
         }
     )
@@ -42,6 +43,7 @@ class GameScheduleRoomMapper @Inject constructor(
     private fun GameEntity.toDomain() = Game(
         id = id,
         week = week,
+        label = label,
         tv = tv,
         radio = radio,
         gameOutcome = wlt.asGameOutcome(),
