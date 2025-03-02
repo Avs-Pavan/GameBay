@@ -3,51 +3,27 @@ package com.pavan.gamebay.feature.gameschedule.data.local.entities
 import androidx.room.Embedded
 import androidx.room.Relation
 
-
-// Data class to hold the full schedule with relationships
-data class ScheduleWithRelations(
+data class ScheduleWithDetails(
     @Embedded val schedule: ScheduleEntity,
     @Relation(
-        parentColumn = "scheduleId",
-        entityColumn = "scheduleId",
-        entity = GameSectionEntity::class
+        entity = GameSectionEntity::class,
+        parentColumn = "defaultGameId",
+        entityColumn = "scheduleId"
     )
-    val gameSections: List<GameSectionWithGames>,
-    @Relation(
-        parentColumn = "scheduleId",
-        entityColumn = "scheduleId",
-        entity = FilterEntity::class
-    )
-    val filters: List<FilterWithItems>
+    val gameSections: List<GameSectionWithGames>
 )
 
 data class GameSectionWithGames(
-    @Embedded val section: GameSectionEntity,
+    @Embedded val gameSection: GameSectionEntity,
     @Relation(
-        parentColumn = "heading",
-        entityColumn = "sectionHeading",
-        entity = GameEntity::class
-    )
-    val games: List<GameWithButtons>
-)
-
-data class GameWithButtons(
-    @Embedded val game: GameEntity,
-    @Relation(
+        entity = GameEntity::class,
         parentColumn = "id",
-        entityColumn = "gameId",
-        entity = ButtonEntity::class
+        entityColumn = "gameSectionId"
     )
-    val buttons: List<ButtonEntity>
+    val games: List<GameWithOpponent>
 )
 
-
-data class FilterWithItems(
-    @Embedded val filter: FilterEntity,
-    @Relation(
-        parentColumn = "queryParameter",
-        entityColumn = "filterQueryParameter",
-        entity = FilterItemEntity::class
-    )
-    val items: List<FilterItemEntity>
+data class GameWithOpponent(
+    @Embedded val game: GameEntity,
+    @Embedded(prefix = "opponent_") val opponent: TeamEntity?
 )

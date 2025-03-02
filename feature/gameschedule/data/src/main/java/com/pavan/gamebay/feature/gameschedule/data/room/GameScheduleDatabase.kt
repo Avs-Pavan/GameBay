@@ -5,34 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.pavan.gamebay.feature.gameschedule.data.local.dao.GameScheduleDao
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.ButtonEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.CardDataEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.FilterEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.FilterItemEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameDateEntity
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.OpponentEntity
+import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameSectionEntity
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.ScheduleEntity
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.TeamEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.TicketsEntity
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.YinzNodeEntity
+
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.jvm.java
 
 
 @Database(
     entities = [
-        GameEntity::class,
         ScheduleEntity::class,
-        TeamEntity::class,
-        CardDataEntity::class,
-        GameDateEntity::class,
-        OpponentEntity::class,
-        TicketsEntity::class,
-        ButtonEntity::class,
-        FilterEntity::class,
-        FilterItemEntity::class,
-        YinzNodeEntity::class,
+        GameSectionEntity::class,
+        GameEntity::class,
+        TeamEntity::class
     ],
     version = 1,
     exportSchema = false
