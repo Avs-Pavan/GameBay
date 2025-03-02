@@ -2,6 +2,7 @@ package com.pavan.gamebay.feature.gameschedule.presentation.screens.components.g
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,15 +10,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pavan.gamebay.core.presentaion.designsystem.ui.components.NetworkImage
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.GameBayTheme
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.bold
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.regular
@@ -72,50 +77,97 @@ fun GameCardUI(
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             if (gameModel.gameType == GameType.FINAL) {
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
                         text = gameModel.homeScore.toString(),
                         style = MaterialTheme.typography.titleMedium.bold(),
-                        modifier = Modifier.align(Alignment.TopStart)
                     )
 
-                    Row {
-
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        NetworkImage(
+                            url = gameModel.homeTeam.teamLogoUrl,
+                            contentDescription = gameModel.homeTeam.name,
+                            modifier = Modifier
+                                .size(40.dp),
+                            placeHolderPainter = painterResource(com.pavan.gamebay.core.presentaion.designsystem.R.drawable.baseline_sports_football_24)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "@",
+                            style = MaterialTheme.typography.bodyMedium.bold(),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        NetworkImage(
+                            url = gameModel.opponentTeam.teamLogoUrl,
+                            contentDescription = gameModel.opponentTeam.name,
+                            modifier = Modifier
+                                .size(40.dp),
+                            placeHolderPainter = painterResource(com.pavan.gamebay.core.presentaion.designsystem.R.drawable.baseline_sports_football_24)
+                        )
                     }
-
                     Text(
                         text = gameModel.awayScore.toString(),
                         style = MaterialTheme.typography.titleMedium.bold(),
-                        modifier = Modifier.align(Alignment.TopEnd)
                     )
                 }
             } else {
 
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
                         text = gameModel.homeTeam.record,
                         style = MaterialTheme.typography.bodySmall.regular(),
-                        modifier = Modifier.align(Alignment.TopStart),
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-                    Row {
-
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        NetworkImage(
+                            url = gameModel.homeTeam.teamLogoUrl,
+                            contentDescription = gameModel.homeTeam.name,
+                            modifier = Modifier
+                                .size(40.dp),
+                            placeHolderPainter = painterResource(com.pavan.gamebay.core.presentaion.designsystem.R.drawable.baseline_sports_football_24)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "@",
+                            style = MaterialTheme.typography.bodyMedium.bold(),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        NetworkImage(
+                            url = gameModel.opponentTeam.teamLogoUrl,
+                            contentDescription = gameModel.opponentTeam.name,
+                            modifier = Modifier
+                                .size(40.dp),
+                            placeHolderPainter = painterResource(com.pavan.gamebay.core.presentaion.designsystem.R.drawable.baseline_sports_football_24)
+                        )
                     }
 
                     Text(
                         text = gameModel.opponentTeam.record,
                         style = MaterialTheme.typography.bodySmall.regular(),
-                        modifier = Modifier.align(Alignment.TopEnd),
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -137,7 +189,7 @@ fun GameCardUI(
                 )
             }
             if (gameModel.tv.isNotEmpty() || gameModel.radio.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = if (gameModel.tv.isNotEmpty()) gameModel.tv else gameModel.radio,

@@ -38,6 +38,6 @@ fun Team.toUIModel(): TeamUIModel {
         record = record,
         wins = wins,
         losses = losses,
-        teamLogoUrl = "http://yc-app-resources.s3.amazonaws.com/nfl/logos/$triCode.png"
+        teamLogoUrl = "https://yc-app-resources.s3.amazonaws.com/nfl/logos/nfl_${triCode.lowercase()}_light.png"
     )
 }
