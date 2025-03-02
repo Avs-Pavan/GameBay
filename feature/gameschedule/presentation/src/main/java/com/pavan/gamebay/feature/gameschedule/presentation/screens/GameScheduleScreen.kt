@@ -1,5 +1,6 @@
 package com.pavan.gamebay.feature.gameschedule.presentation.screens
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -9,7 +10,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pavan.gamebay.core.presentaion.designsystem.ui.components.HandleState
+import com.pavan.gamebay.core.presentaion.designsystem.ui.components.LottieUI
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.GameBayTheme
+import com.pavan.gamebay.feature.gameschedule.presentation.R
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.PreviewConstants.SAMPLE_GAME_SCHEDULE_UI_STATE
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.game.GameCardUIEvents
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.gamesection.GameSectionUI
@@ -41,7 +44,10 @@ private fun GameScheduleScreenContent(
         item {
             uiState.gameSections.HandleState(
                 onLoading = {
-                    // Loading State
+                    LottieUI(
+                        modifier = Modifier.fillMaxSize(),
+                        jsonRes = R.raw.shimmer
+                    )
                 },
                 onError = {
                     // Error State

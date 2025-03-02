@@ -46,7 +46,7 @@ fun GameSectionUI(
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
         }
-        gameSectionUIModel.games.forEach { game ->
+        gameSectionUIModel.games.forEachIndexed { index, game ->
             GameCardUI(
                 gameModel = game,
                 modifier = Modifier
@@ -55,7 +55,8 @@ fun GameSectionUI(
             ) { gameCardUIEvents ->
                 onEvent(gameCardUIEvents)
             }
-            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+            if (index != gameSectionUIModel.games.size - 1)
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
         }
     }
 }

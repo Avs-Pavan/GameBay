@@ -54,7 +54,6 @@ class GameScheduleViewModel @Inject constructor(
                                     }
                                 )
                             )
-
                         }
                     }
                 }.onError {

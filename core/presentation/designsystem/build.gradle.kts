@@ -99,6 +99,11 @@ dependencies {
     api(libs.coil.compose)
     api(libs.coil.network.okhttp)
 
+    /**
+     * Lottie
+     * */
+    api(libs.airbnb.lottie)
+
     testApi(libs.junit)
     androidTestApi(libs.androidx.junit)
     androidTestApi(libs.androidx.espresso.core)
