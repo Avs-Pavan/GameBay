@@ -7,12 +7,15 @@ import com.pavan.gamebay.feature.gameschedule.domain.models.Schedule
 import com.pavan.gamebay.feature.gameschedule.domain.repo.IGameScheduleRepo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Use case for retrieving the game schedule.
  *
  * @property gameScheduleRepo Repository to access game schedule data.
  */
+
+@Singleton
 class GetGameScheduleUseCase @Inject constructor(
     private val gameScheduleRepo: IGameScheduleRepo,
 ) {

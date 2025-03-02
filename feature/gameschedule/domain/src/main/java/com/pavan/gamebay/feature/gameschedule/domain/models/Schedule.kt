@@ -31,8 +31,8 @@ data class Game(
     val tv: String,
     val radio: String,
     val gameOutcome: GameOutcome,
-    val awayScore: Int,
-    val homeScore: Int,
+    val awayScore: String,
+    val homeScore: String,
     val gameType: GameType,
     val gameDate: GameDate,
     val opponentTeam: Team

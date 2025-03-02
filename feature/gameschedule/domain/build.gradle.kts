@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     // Dependency on the core domain module
-    implementation(project(":core:domain"))
+    api(project(":core:domain"))
 }
 
 java {

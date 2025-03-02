@@ -4,7 +4,6 @@ import com.pavan.gamebay.core.domain.DefaultDispatcher
 import com.pavan.gamebay.core.domain.IMapper
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameEntity
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameSectionWithGames
-import com.pavan.gamebay.feature.gameschedule.data.local.entities.GameWithOpponent
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.ScheduleWithDetails
 import com.pavan.gamebay.feature.gameschedule.data.local.entities.TeamEntity
 import com.pavan.gamebay.feature.gameschedule.domain.models.Game
@@ -26,55 +25,52 @@ class GameScheduleRoomMapper @Inject constructor(
     }
 
     private fun ScheduleWithDetails.toDomain() = Schedule(
-        team = this.schedule.team.toDomain(),
-        defaultGameId = this.schedule.defaultGameId.toLong(),
+        team = this.schedule?.team.toDomain(),
+        defaultGameId = this.schedule?.defaultGameId?.toLong() ?: 0L,
         gameSection = this.gameSections.map {
             it.toDomain()
         }
     )
 
     private fun GameSectionWithGames.toDomain() = GameSection(
-        heading = this.gameSection.heading ?: "",
+        heading = this.gameSection?.heading ?: "",
         game = this.games.map {
             it.toDomain()
         }
     )
 
-    private fun GameWithOpponent.toDomain(): Game {
-        return Game(
-            id = this.game.id,
-            week = this.game.week ?: "",
-            gameState = this.game.gameState ?: "",
-            tv = this.game.tv ?: "",
-            radio = this.game.radio ?: "",
-            awayScore = this.game.awayScore?.toInt() ?: 0,
-            homeScore = this.game.homeScore?.toInt() ?: 0,
-            gameOutcome = this.game.wlt.asGameOutcome(),
-            gameType = this.game.type.asGameType(),
-            gameDate = this.game.toGameDate(),
-            opponentTeam = this.opponent.toDomain(),
-        )
-    }
+    private fun GameEntity.toDomain() = Game(
+        id = id,
+        week = week,
+        tv = tv,
+        radio = radio,
+        gameOutcome = wlt.asGameOutcome(),
+        gameState = gameState,
+        awayScore = awayScore,
+        homeScore = homeScore,
+        gameType = type.asGameType(),
+        gameDate = this.toGameDate(),
+        opponentTeam = opponent.toDomain()
+    )
 
-    private fun TeamEntity?.toDomain(): Team {
-        return this?.toDomain() ?: Team(
-            triCode = "",
-            fullName = "",
-            name = "",
-            city = "",
-            record = "",
-            wins = 0,
-            losses = 0,
-            winPercentage = 0.0,
-            primaryColor = ""
-        )
-    }
+
+    private fun TeamEntity?.toDomain() = Team(
+        triCode = this?.triCode ?: "",
+        fullName = this?.fullName ?: "",
+        name = this?.name ?: "",
+        city = this?.city ?: "",
+        record = this?.record ?: "",
+        wins = this?.wins ?: 0,
+        losses = this?.losses ?: 0,
+        winPercentage = this?.winPercentage ?: 0.0,
+        primaryColor = this?.primaryColor ?: ""
+    )
 
     private fun GameEntity?.toGameDate(): GameDate {
         return this?.let {
             GameDate(
-                dateText = dateText ?: "",
-                dateTime = dateTime ?: "",
+                dateText = dateText,
+                dateTime = dateTime,
             )
         } ?: GameDate(
             dateText = "",

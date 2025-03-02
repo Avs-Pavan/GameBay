@@ -1,6 +1,7 @@
 package com.pavan.gamebay.feature.gameschedule.data.repo
 
 import android.util.Log
+import com.pavan.gamebay.core.domain.DataError
 import com.pavan.gamebay.core.domain.IODispatcher
 import com.pavan.gamebay.core.domain.MError
 import com.pavan.gamebay.core.domain.Result
@@ -16,7 +17,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GameScheduleRepo @Inject constructor(
     private val remoteDataSource: GameScheduleRemoteDataSource,
     private val localDataSource: GameScheduleDao,
@@ -26,9 +29,9 @@ class GameScheduleRepo @Inject constructor(
 
     override fun getGameSchedule(): Flow<Result<Schedule, MError>> {
         return localDataSource.getScheduleWithDetails().map { cachedSchedule ->
-            cachedSchedule.let {
+            cachedSchedule?.let {
                 Result.Success(gameScheduleRoomMapper.map(cachedSchedule))
-            }
+            } ?: Result.Error(DataError("No data found"))
         }
     }
 
@@ -36,20 +39,23 @@ class GameScheduleRepo @Inject constructor(
         remoteDataSource.getGameSchedule().onSuccess { schedule ->
             withContext(ioDispatcher) {
                 // Insert schedule
-                localDataSource.insertSchedule(schedule)
-                // Insert Home team
-                schedule.team?.let {
-                    localDataSource.insertTeam(it)
+                schedule.schedule?.let {
+                    localDataSource.insertSchedule(it)
                 }
-                // Insert sections
-                schedule.gameSections.forEach { section ->
-                    val sectionId = localDataSource.insertGameSection(section)
-                    val games = section.games.map { game ->
-                        game.copy(gameSectionId = sectionId)
+
+
+                // Insert game sections
+                schedule.gameSections.forEach { gameSection ->
+                    gameSection.gameSection?.let {
+                        localDataSource.insertGameSection(it)
+                        // Insert games
+                        val games = gameSection.games.map {
+                            it.copy(gameSectionHeading = gameSection.gameSection.heading)
+                        }
+                        localDataSource.insertGames(games)
                     }
-                    // Insert games
-                    localDataSource.insertGames(games)
                 }
+
             }
         }.onError {
             Log.e(TAG, "Error refreshing game schedule: $it")

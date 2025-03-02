@@ -15,7 +15,7 @@ data class ScheduleResponse(
 data class GameSectionResponse(
     @SerializedName("Heading")
     val heading: String? = null,
-    @SerializedName("Games")
+    @SerializedName("Game")
     val games: List<GameResponse>? = null
 )
 

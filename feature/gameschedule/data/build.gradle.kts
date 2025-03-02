@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -36,6 +38,18 @@ dependencies {
 
     implementation(project(":feature:gameschedule:domain"))
     implementation(project(":core:data"))
+
+    // Hilt navigation
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+
+
+    // Room DB
+    api(libs.androidx.room.runtime)
+    api(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler) {
+        exclude(group = "com.intellij", module = "annotations")
+    }
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -17,7 +17,7 @@ interface GameScheduleDao {
 
     @Transaction
     @Query("SELECT * FROM ScheduleEntity")
-    fun getScheduleWithDetails(): Flow<ScheduleWithDetails>
+    fun getScheduleWithDetails(): Flow<ScheduleWithDetails?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSchedule(schedule: ScheduleEntity)

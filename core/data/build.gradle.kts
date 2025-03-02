@@ -59,13 +59,6 @@ dependencies {
     api(libs.retrofit.converter.gson)
     api(libs.retrofit.logging.interceptor)
 
-    // Room DB
-    api(libs.androidx.room.runtime)
-    api(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

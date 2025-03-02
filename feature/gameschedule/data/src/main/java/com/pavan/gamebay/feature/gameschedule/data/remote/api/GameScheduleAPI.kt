@@ -14,5 +14,5 @@ fun interface GameScheduleAPI {
      * @return Response containing the ScheduleResponse.
      */
     @GET("iOS/interviews/ScheduleExercise/schedule.json")
-    fun getGameSchedule(): Response<ScheduleResponse>
+    suspend fun getGameSchedule(): Response<ScheduleResponse>
 }
