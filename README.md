@@ -13,13 +13,24 @@
 * **MVVM (Model-View-ViewModel):** For clear separation of UI logic and business logic.
 * **Clean Architecture:** For a maintainable and testable codebase.
 * **Offline-First Approach:** Prioritizing local data and syncing with remote data when available.
+* **BaseLine Profile:** To increase the application's performance by creating builds with AOT-compiled ahead of time, reducing startup latency and runtime overhead.
 
 The application is structured into modular components (App, Core, and Feature/GameSchedule) to ensure separation of concerns, reusability, and maintainability.
+
 
 ## Screenshots/Videos
 
 <img src="https://drive.google.com/uc?id=11vvShtA-_asjYSsdwPIRkApaxtW1yhHA" height="350">  <img src="https://drive.google.com/uc?id=1sqWpsl6tLL5vCiqdB_dDe08bFisVDTf8" height="350">  <img src="https://drive.google.com/uc?id=1m0PNahfFzxmMBiS4QwjzA5DSdnMbZCse" height="350">   <img src="https://drive.google.com/uc?id=1Bh0gv89JgIzGBTULgMapXk2q6-OMjZR_" height="350">
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/CcWcZpLdRY8/0.jpg)](https://www.youtube.com/watch?v=CcWcZpLdRY8)
+
+## BaseLine Profile Images:
+
+#### Baseline Profile - Start-up
+<img src="https://drive.google.com/uc?id=1SQApMfjgElOJBo7qMgjklBFv7LAyQPKZ" height="350">
+
+#### BaseLine Profile - Scrolling
+<img src="https://drive.google.com/uc?id=12-f46s3bIWIWkkRQeO0DHmV8oPI2VGF2" height="350">
+
 
 ## Detailed Module Descriptions
 
