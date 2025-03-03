@@ -1,6 +1,7 @@
 package com.pavan.gamebay.feature.gameschedule.data.remote.api
 
 import com.pavan.gamebay.feature.gameschedule.data.remote.model.ScheduleResponse
+import com.pavan.rapidqa.interceptors.tag.Named
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -13,6 +14,7 @@ fun interface GameScheduleAPI {
      *
      * @return Response containing the ScheduleResponse.
      */
+    @Named("Get Game Schedule")
     @GET("iOS/interviews/ScheduleExercise/schedule.json")
     suspend fun getGameSchedule(): Response<ScheduleResponse>
 }
