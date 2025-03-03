@@ -14,6 +14,7 @@
 * **Clean Architecture:** For a maintainable and testable codebase.
 * **Offline-First Approach:** Prioritizing local data and syncing with remote data when available.
 * **BaseLine Profile:** To increase the application's performance by creating builds with AOT-compiled ahead of time, reducing startup latency and runtime overhead.
+* **BaseLine Profile Results:** The median startup time is 1.85% faster with None, but the minimum and maximum times are 2.89% and 7.14% slower, respectively, compared to BaselineProfiles. 
 
 The application is structured into modular components (App, Core, and Feature/GameSchedule) to ensure separation of concerns, reusability, and maintainability.
 
