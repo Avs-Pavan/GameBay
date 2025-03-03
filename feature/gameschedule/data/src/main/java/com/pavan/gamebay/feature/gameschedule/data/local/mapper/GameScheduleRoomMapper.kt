@@ -15,6 +15,9 @@ import com.pavan.gamebay.feature.gameschedule.domain.models.Schedule
 import com.pavan.gamebay.feature.gameschedule.domain.models.Team
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 /**
@@ -108,13 +111,45 @@ class GameScheduleRoomMapper @Inject constructor(
     private fun GameEntity?.toGameDate(): GameDate {
         return this?.let {
             GameDate(
-                dateText = dateText,
-                dateTime = dateTime,
+                dateText = dateTimestamp.toLocalFormattedDate(),
+                dateTime = dateTimestamp.toLocalFormattedTime(),
             )
         } ?: GameDate(
             dateText = "",
             dateTime = "",
         )
+    }
+
+    // Extension for date part (DDD, MMM, dd)
+    fun String.toLocalFormattedDate(): String {
+        try {
+
+
+            val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+            utcFormat.timeZone = TimeZone.getTimeZone("UTC")
+            val date = utcFormat.parse(this) ?: return "Invalid date"
+
+            val dateFormat = SimpleDateFormat("EEE, MMM dd", Locale.US)
+            dateFormat.timeZone = TimeZone.getDefault()
+            return dateFormat.format(date)
+        } catch (e: Exception) {
+            return ""
+        }
+    }
+
+    // Extension for time part (hh:mm a)
+    fun String.toLocalFormattedTime(): String {
+        try {
+            val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+            utcFormat.timeZone = TimeZone.getTimeZone("UTC")
+            val date = utcFormat.parse(this) ?: return "Invalid time"
+
+            val timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
+            timeFormat.timeZone = TimeZone.getDefault()
+            return timeFormat.format(date)
+        } catch (e: Exception) {
+            return ""
+        }
     }
 
     /**
