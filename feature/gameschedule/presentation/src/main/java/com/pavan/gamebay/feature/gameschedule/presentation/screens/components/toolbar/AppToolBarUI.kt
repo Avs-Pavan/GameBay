@@ -43,7 +43,7 @@ fun AppToolBarUI(
             Row {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_menu_24),
-                    contentDescription = "Refresh",
+                    contentDescription = "Menu",
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp)
                         .clickable {

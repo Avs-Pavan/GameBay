@@ -31,6 +31,13 @@ import com.pavan.gamebay.feature.gameschedule.presentation.R
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.PreviewConstants.SAMPLE_GAME_UI_MODEL
 
 
+/**
+ * Composable function to display a game card UI.
+ *
+ * @param modifier Modifier to be applied to the game card.
+ * @param gameModel Data model representing the game details.
+ * @param onEvent Callback to handle game card events.
+ */
 @Composable
 fun GameCardUI(
     modifier: Modifier = Modifier,
@@ -202,6 +209,9 @@ fun GameCardUI(
     }
 }
 
+/**
+ * Preview function for the scheduled game card UI.
+ */
 @Composable
 @Preview
 fun GameCardUIScheduledPreview() {
@@ -212,6 +222,9 @@ fun GameCardUIScheduledPreview() {
     }
 }
 
+/**
+ * Preview function for the final game card UI.
+ */
 @Composable
 @Preview
 fun GameCardUIFinalPreview() {
@@ -224,6 +237,9 @@ fun GameCardUIFinalPreview() {
     }
 }
 
+/**
+ * Preview function for the bye game card UI.
+ */
 @Composable
 @Preview
 fun GameCardUIByePreview() {
@@ -235,4 +251,3 @@ fun GameCardUIByePreview() {
         )
     }
 }
-

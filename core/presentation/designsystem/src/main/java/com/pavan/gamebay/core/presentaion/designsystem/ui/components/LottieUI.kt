@@ -11,6 +11,12 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 
+/**
+ * A composable function that displays a Lottie animation.
+ *
+ * @param jsonRes The resource ID of the Lottie JSON file.
+ * @param modifier The modifier to be applied to the animation.
+ */
 @Composable
 fun LottieUI(
     @RawRes jsonRes: Int,
@@ -27,7 +33,6 @@ fun LottieUI(
         iterations = LottieConstants.IterateForever,
         isPlaying = true
     )
-
 
     LottieAnimation(
         contentScale = ContentScale.Crop,

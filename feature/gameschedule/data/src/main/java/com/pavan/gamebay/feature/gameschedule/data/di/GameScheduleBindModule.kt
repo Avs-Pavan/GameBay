@@ -15,23 +15,45 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Dagger module for binding game schedule related dependencies.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class GameScheduleBindModule {
 
+    /**
+     * Binds the implementation of [GameScheduleRepo] to the [IGameScheduleRepo] interface.
+     *
+     * @param gameScheduleRepositoryImpl The implementation of the game schedule repository.
+     * @return The bound game schedule repository.
+     */
     @Binds
     @Singleton
     abstract fun bindGameScheduleRepository(
         gameScheduleRepositoryImpl: GameScheduleRepo
     ): IGameScheduleRepo
 
+    /**
+     * Binds the implementation of [GameScheduleRoomMapper] to the [IMapper] interface for
+     * mapping [ScheduleWithDetails] to [Schedule].
+     *
+     * @param gameScheduleRoomMapperImpl The implementation of the game schedule room mapper.
+     * @return The bound game schedule room mapper.
+     */
     @Binds
     @Singleton
     abstract fun bindGameScheduleRoomMapper(
         gameScheduleRoomMapperImpl: GameScheduleRoomMapper
     ): IMapper<ScheduleWithDetails, Schedule>
 
-
+    /**
+     * Binds the implementation of [GameScheduleRemoteDataMapper] to the [IMapper] interface for
+     * mapping [ScheduleResponse] to [ScheduleWithDetails].
+     *
+     * @param gameScheduleRemoteDataMapperImpl The implementation of the game schedule remote data mapper.
+     * @return The bound game schedule remote data mapper.
+     */
     @Binds
     @Singleton
     abstract fun bindGameScheduleRemoteDataMapper(

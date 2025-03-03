@@ -23,6 +23,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
+/**
+ *  ViewModel for the Game Schedule screen.
+ *  This ViewModel is responsible for handling the UI state of the Game Schedule screen.
+ *  It fetches the game schedule data and updates the UI state accordingly.
+ */
 @HiltViewModel
 class GameScheduleViewModel @Inject constructor(
     private val refreshGameSchedule: Lazy<RefreshGameScheduleUseCase>,
@@ -30,7 +36,10 @@ class GameScheduleViewModel @Inject constructor(
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    // Mutable state flow to hold the UI state of the game schedule
     private val _uiState = MutableStateFlow(GameScheduleUIState())
+
+    // Publicly exposed state flow for observing the UI state
     val uiState = _uiState.onStart {
         refreshGameSchedule.get().invoke()
         fetchGameSchedule()
@@ -40,6 +49,9 @@ class GameScheduleViewModel @Inject constructor(
         initialValue = GameScheduleUIState()
     )
 
+    /**
+     * Fetches the game schedule and updates the UI state.
+     */
     private fun fetchGameSchedule() {
         viewModelScope.launch {
             getGameSchedule.get().invoke().collectLatest { result ->
@@ -63,6 +75,11 @@ class GameScheduleViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handles UI events related to game cards.
+     *
+     * @param event The event to handle.
+     */
     fun onEvent(event: GameCardUIEvents) {
         when (event) {
             is GameCardUIEvents.OnGameClick -> {

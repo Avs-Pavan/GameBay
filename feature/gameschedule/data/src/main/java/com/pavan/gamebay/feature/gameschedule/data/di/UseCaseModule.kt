@@ -9,10 +9,19 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Dagger module that provides use cases for game schedule operations.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class UseCaseModule {
 
+    /**
+     * Provides an instance of [GetGameScheduleUseCase].
+     *
+     * @param repository The repository to be used by the use case.
+     * @return An instance of [GetGameScheduleUseCase].
+     */
     @Provides
     @Singleton
     fun provideGetGameScheduleUseCase(
@@ -21,6 +30,12 @@ class UseCaseModule {
         return GetGameScheduleUseCase(repository)
     }
 
+    /**
+     * Provides an instance of [RefreshGameScheduleUseCase].
+     *
+     * @param repository The repository to be used by the use case.
+     * @return An instance of [RefreshGameScheduleUseCase].
+     */
     @Provides
     @Singleton
     fun provideRefreshGameScheduleUseCase(

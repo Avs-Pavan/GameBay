@@ -1,14 +1,11 @@
-package com.pavan.gamebay.feature.gameschedule.presentation.screens.components.game
-
-import androidx.compose.runtime.Immutable
-import com.pavan.gamebay.feature.gameschedule.domain.models.GameDate
-import com.pavan.gamebay.feature.gameschedule.domain.models.GameOutcome
-import com.pavan.gamebay.feature.gameschedule.domain.models.GameType
+package com.pavan.gamebay.feature.gameschedule.domain.models
 
 /**
- * Immutable data class representing the UI model for a game.
+ * Data class representing a Game.
  *
+ * @property id The unique identifier of the game.
  * @property week The week of the game.
+ * @property label The label of the game.
  * @property gameState The current state of the game.
  * @property tv The TV channel broadcasting the game.
  * @property radio The radio station broadcasting the game.
@@ -17,12 +14,12 @@ import com.pavan.gamebay.feature.gameschedule.domain.models.GameType
  * @property homeScore The score of the home team.
  * @property gameType The type of the game.
  * @property gameDate The date of the game.
- * @property opponentTeam The UI model of the opponent team.
- * @property homeTeam The UI model of the home team.
+ * @property opponentTeam The opponent team.
  */
-@Immutable
-data class GameUIModel(
+data class Game(
+    val id: Long,
     val week: String,
+    val label: String,
     val gameState: String,
     val tv: String,
     val radio: String,
@@ -31,6 +28,5 @@ data class GameUIModel(
     val homeScore: String,
     val gameType: GameType,
     val gameDate: GameDate,
-    val opponentTeam: TeamUIModel,
-    val homeTeam: TeamUIModel
+    val opponentTeam: Team
 )

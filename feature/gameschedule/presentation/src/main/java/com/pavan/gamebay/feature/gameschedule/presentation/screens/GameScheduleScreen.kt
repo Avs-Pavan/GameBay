@@ -18,6 +18,12 @@ import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.ga
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.gamesection.GameSectionUI
 
 
+/**
+ * Composable function for displaying the game schedule screen.
+ *
+ * @param modifier Modifier for styling the composable.
+ * @param viewModel ViewModel for managing the UI state.
+ */
 @Composable
 fun GameScheduleScreen(
     modifier: Modifier = Modifier,
@@ -31,9 +37,15 @@ fun GameScheduleScreen(
     ) { gameCardUIEvents ->
         viewModel.onEvent(gameCardUIEvents)
     }
-
 }
 
+/**
+ * Composable function for displaying the content of the game schedule screen.
+ *
+ * @param modifier Modifier for styling the composable.
+ * @param uiState The UI state of the game schedule.
+ * @param onEvent Callback for handling game card UI events.
+ */
 @Composable
 private fun GameScheduleScreenContent(
     modifier: Modifier = Modifier,
@@ -67,6 +79,9 @@ private fun GameScheduleScreenContent(
     }
 }
 
+/**
+ * Preview function for the GameScheduleScreenContent composable.
+ */
 @Preview
 @Composable
 private fun Preview() {
@@ -76,4 +91,3 @@ private fun Preview() {
         )
     }
 }
-

@@ -8,13 +8,26 @@ import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.ga
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.gamesection.GameSectionUIModel
 
 
+/**
+ * Extension function to convert a GameSection domain model to a GameSectionUIModel.
+ *
+ * @param team The team associated with the game section.
+ * @return A GameSectionUIModel representing the UI model of the game section.
+ */
 fun GameSection.toUIModel(team: Team): GameSectionUIModel {
     return GameSectionUIModel(
         heading = heading,
-        games = games.sortedBy { it.label.toInt() }.map { it.toUIModel(team) }
+        games = games.sortedBy { it.label.toIntOrNull() ?: Int.MAX_VALUE }
+            .map { it.toUIModel(team) }
     )
 }
 
+/**
+ * Extension function to convert a Game domain model to a GameUIModel.
+ *
+ * @param homeTeam The home team associated with the game.
+ * @return A GameUIModel representing the UI model of the game.
+ */
 fun Game.toUIModel(homeTeam: Team): GameUIModel {
     return GameUIModel(
         week = week,
@@ -31,6 +44,11 @@ fun Game.toUIModel(homeTeam: Team): GameUIModel {
     )
 }
 
+/**
+ * Extension function to convert a Team domain model to a TeamUIModel.
+ *
+ * @return A TeamUIModel representing the UI model of the team.
+ */
 fun Team.toUIModel(): TeamUIModel {
     return TeamUIModel(
         name = name,

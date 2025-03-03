@@ -20,6 +20,13 @@ import com.pavan.gamebay.feature.gameschedule.presentation.screens.PreviewConsta
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.game.GameCardUI
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.game.GameCardUIEvents
 
+/**
+ * Composable function to display a section of games.
+ *
+ * @param modifier Modifier to be applied to the Column.
+ * @param gameSectionUIModel Data model containing the heading and list of games.
+ * @param onEvent Lambda function to handle events from GameCardUI.
+ */
 @Composable
 fun GameSectionUI(
     modifier: Modifier = Modifier,
@@ -61,7 +68,9 @@ fun GameSectionUI(
     }
 }
 
-
+/**
+ * Preview function for GameSectionUI composable.
+ */
 @Preview
 @Composable
 fun GameSectionUIPreview() {

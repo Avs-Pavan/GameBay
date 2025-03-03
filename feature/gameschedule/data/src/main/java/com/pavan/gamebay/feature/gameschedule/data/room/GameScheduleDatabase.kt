@@ -14,6 +14,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.jvm.java
 
 
+/**
+ * The Room database for the game schedule feature.
+ */
 @Database(
     entities = [
         ScheduleEntity::class,
@@ -25,6 +28,10 @@ import kotlin.jvm.java
     exportSchema = false
 )
 abstract class GameScheduleDatabase : RoomDatabase() {
+
+    /**
+     * Provides access to the GameScheduleDao.
+     */
     abstract fun scheduleDao(): GameScheduleDao
 
     companion object {
@@ -33,6 +40,12 @@ abstract class GameScheduleDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: GameScheduleDatabase? = null
 
+        /**
+         * Returns the singleton instance of GameScheduleDatabase.
+         *
+         * @param context The application context.
+         * @return The singleton instance of GameScheduleDatabase.
+         */
         fun getDatabase(@ApplicationContext context: Context): GameScheduleDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -46,5 +59,4 @@ abstract class GameScheduleDatabase : RoomDatabase() {
             }
         }
     }
-
 }

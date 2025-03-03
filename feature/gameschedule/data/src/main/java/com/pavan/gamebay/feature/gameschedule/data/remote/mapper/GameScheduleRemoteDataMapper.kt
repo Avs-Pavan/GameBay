@@ -16,15 +16,33 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Mapper class to convert remote data models to local data models.
+ *
+ * @property defaultDispatcher The default coroutine dispatcher.
+ */
 class GameScheduleRemoteDataMapper @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : IMapper<ScheduleResponse, ScheduleWithDetails> {
+
+    /**
+     * Maps a [ScheduleResponse] to [ScheduleWithDetails].
+     *
+     * @param input The [ScheduleResponse] to map.
+     * @return The mapped [ScheduleWithDetails].
+     */
     override suspend fun map(input: ScheduleResponse): ScheduleWithDetails {
         return withContext(defaultDispatcher) {
             input.scheduleWithDetails()
         }
     }
 
+    /**
+     * Extension function to map [ScheduleResponse] to [ScheduleWithDetails].
+     *
+     * @receiver The [ScheduleResponse] to map.
+     * @return The mapped [ScheduleWithDetails].
+     */
     private fun ScheduleResponse.scheduleWithDetails(): ScheduleWithDetails {
         return ScheduleWithDetails(
             schedule = this.toEntity(),
@@ -32,6 +50,12 @@ class GameScheduleRemoteDataMapper @Inject constructor(
         )
     }
 
+    /**
+     * Extension function to map [GameSectionResponse] to [GameSectionWithGames].
+     *
+     * @receiver The [GameSectionResponse] to map.
+     * @return The mapped [GameSectionWithGames].
+     */
     private fun GameSectionResponse.toGameSectionWithGames(): GameSectionWithGames {
         return GameSectionWithGames(
             gameSection = this.toEntity(),
@@ -39,6 +63,12 @@ class GameScheduleRemoteDataMapper @Inject constructor(
         )
     }
 
+    /**
+     * Extension function to map [ScheduleResponse] to [ScheduleEntity].
+     *
+     * @receiver The [ScheduleResponse] to map.
+     * @return The mapped [ScheduleEntity].
+     */
     private fun ScheduleResponse.toEntity(): ScheduleEntity {
         return ScheduleEntity(
             defaultGameId = defaultGameId ?: "",
@@ -46,6 +76,12 @@ class GameScheduleRemoteDataMapper @Inject constructor(
         )
     }
 
+    /**
+     * Extension function to map [GameSectionResponse] to [GameSectionEntity].
+     *
+     * @receiver The [GameSectionResponse] to map.
+     * @return The mapped [GameSectionEntity].
+     */
     private fun GameSectionResponse.toEntity(): GameSectionEntity {
         return GameSectionEntity(
             heading = heading ?: "",
@@ -53,6 +89,12 @@ class GameScheduleRemoteDataMapper @Inject constructor(
         )
     }
 
+    /**
+     * Extension function to map [GameResponse] to [GameEntity].
+     *
+     * @receiver The [GameResponse] to map.
+     * @return The mapped [GameEntity].
+     */
     private fun GameResponse.toEntity(): GameEntity {
         return GameEntity(
             week = week ?: "",
@@ -73,6 +115,12 @@ class GameScheduleRemoteDataMapper @Inject constructor(
         )
     }
 
+    /**
+     * Extension function to map [TeamResponse] to [TeamEntity].
+     *
+     * @receiver The [TeamResponse] to map.
+     * @return The mapped [TeamEntity].
+     */
     private fun TeamResponse.toEntity(): TeamEntity {
         return TeamEntity(
             triCode = triCode ?: "",

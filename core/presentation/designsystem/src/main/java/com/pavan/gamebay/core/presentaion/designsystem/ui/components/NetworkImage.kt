@@ -24,6 +24,17 @@ import coil3.util.DebugLogger
 import com.pavan.gamebay.core.presentaion.designsystem.R
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.BackgroundColor
 
+/**
+ * A composable function that displays an image from a network URL.
+ *
+ * @param url The URL of the image to load.
+ * @param contentDescription The content description for the image.
+ * @param modifier The modifier to be applied to the image.
+ * @param contentScale The scaling strategy for the image content.
+ * @param alignment The alignment of the image within its bounds.
+ * @param placeHolderPainter The painter to use for the placeholder image.
+ * @param errorPainter The painter to use for the error image.
+ */
 @Composable
 fun NetworkImage(
     url: String,
@@ -53,7 +64,6 @@ fun NetworkImage(
                 .logger(DebugLogger())
                 .build(),
             model = ImageRequest.Builder(LocalContext.current)
-
                 .data(url)
                 .memoryCacheKey(url)
                 .memoryCachePolicy(CachePolicy.ENABLED)
@@ -72,7 +82,9 @@ fun NetworkImage(
     }
 }
 
-
+/**
+ * A preview composable function for the NetworkImage composable.
+ */
 @Composable
 @Preview
 fun NetworkImagePreview() {
