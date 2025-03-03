@@ -17,7 +17,7 @@ The application is structured into modular components (App, Core, and Feature/Ga
 
 ## Screenshots/Videos
 
-![Loading](https://drive.google.com/uc?id=11vvShtA-_asjYSsdwPIRkApaxtW1yhHA){height=250px}
+<img src="https://drive.google.com/uc?id=11vvShtA-_asjYSsdwPIRkApaxtW1yhHA" height="350">  <img src="https://drive.google.com/uc?id=1sqWpsl6tLL5vCiqdB_dDe08bFisVDTf8" height="350">  <img src="https://drive.google.com/uc?id=1m0PNahfFzxmMBiS4QwjzA5DSdnMbZCse" height="350">   <img src="https://drive.google.com/uc?id=1Bh0gv89JgIzGBTULgMapXk2q6-OMjZR_" height="350">
 
 ## Detailed Module Descriptions
 
