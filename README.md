@@ -15,6 +15,10 @@
 
 The application is structured into modular components (App, Core, and Feature/GameSchedule) to ensure separation of concerns, reusability, and maintainability.
 
+## Screenshots/Videos
+
+![Loading](https://drive.google.com/uc?id=11vvShtA-_asjYSsdwPIRkApaxtW1yhHA){height=250px}
+
 ## Detailed Module Descriptions
 
 ## Simple App Architecture
