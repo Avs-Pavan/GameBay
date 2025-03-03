@@ -8,6 +8,7 @@
 * **Retrofit:** For network requests to fetch game schedule data.
 * **Hilt:** For dependency injection, managing object creation and lifecycle.
 * **Coil:** For efficient image loading (e.g., team logos).
+* **RapidQA:** For Network Tracing and exporting network logs as Text and Postman Collection.
 * **Kotlin:** As the primary programming language, ensuring clean and safe code.
 * **MVVM (Model-View-ViewModel):** For clear separation of UI logic and business logic.
 * **Clean Architecture:** For a maintainable and testable codebase.
