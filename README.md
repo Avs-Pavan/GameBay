@@ -17,6 +17,117 @@ The application is structured into modular components (App, Core, and Feature/Ga
 
 ## Detailed Module Descriptions
 
+## Simple App Architecture
+
+```
+GameBay/
+├── app
+└── core
+    ├── data
+    ├── domain
+    └── presentation/designsystem
+└── feature/gameschedule
+    ├── data
+    ├── domain
+    └── presentation
+```
+
+
+## Detailed file structure:
+```
+GameBay/
+├── app/
+│   ├── GameBayApplication.kt
+│   └── MainActivity.kt
+├── core/
+│   ├── data/
+│   │   ├── SafeNetwork.kt
+│   │   ├── AppModule.kt
+│   │   └── NetworkModule.kt
+│   ├── domain/
+│   │   ├── CoreDomainConstants.kt
+│   │   ├── IMapper.kt
+│   │   ├── MError.kt
+│   │   ├── Qualifiers.kt
+│   │   ├── Result.kt
+│   │   ├── ValidationBlock.kt
+│   │   └── ValidationContext.kt
+│   └── presentation/designsystem/
+│       ├── ui/
+│       │   ├── components/
+│       │   │   ├── LottieUI.kt
+│       │   │   ├── NetworkImage.kt
+│       │   │   ├── Qualifiers.kt
+│       │   │   ├── UIState.kt
+│       │   │   └── UIText.kt
+│       │   └── theme/
+│       │       ├── Color.kt
+│       │       ├── Theme.kt
+│       │       └── Type.kt
+└── feature/gameschedule/
+├── data/
+│   ├── GameScheduleBindModule.kt
+│   ├── GameScheduleModule.kt
+│   ├── UseCaseModule.kt
+│   ├── local/
+│   │   ├── dao/
+│   │   │   └── GameScheduleDao.kt
+│   │   ├── entities/
+│   │   │   ├── GameEntity.kt
+│   │   │   ├── GameSectionEntity.kt
+│   │   │   ├── Relations.kt
+│   │   │   ├── ScheduleEntity.kt
+│   │   │   └── TeamEntity.kt
+│   │   └── mapper/
+│   │       └── GameScheduleRoomMapper.kt
+│   ├── remote/
+│   │   ├── api/
+│   │   │   └── GameScheduleAPI.kt
+│   │   ├── datasource/
+│   │   │   └── GameScheduleRemoteDataSource.kt
+│   │   ├── mapper/
+│   │   │   └── GameScheduleRemoteDataMapper.kt
+│   │   └── model/
+│   │       ├── GameResponse.kt
+│   │       ├── GameSectionResponse.kt
+│   │       ├── MDateResponse.kt
+│   │       ├── ScheduleResponse.kt
+│   │       └── TeamResponse.kt
+│   ├── repo/
+│   │   └── GameScheduleRepo.kt
+│   └── room/
+│       └── GameScheduleDatabase.kt
+├── domain/
+│   ├── Game.kt
+│   ├── GameDate.kt
+│   ├── GameOutcome.kt
+│   ├── GameSection.kt
+│   ├── GameType.kt
+│   ├── Schedule.kt
+│   ├── Team.kt
+│   ├── IGameScheduleRepo.kt
+│   ├── GetGameScheduleUseCase.kt
+│   └── RefreshGameScheduleUseCase.kt
+└── presentation/
+├── GameScheduleScreen.kt
+├── GameScheduleUIMappings.kt
+├── GameScheduleUIState.kt
+├── GameScheduleViewModel.kt
+├── PreviewConstants.kt
+├── game/
+│   ├── GameCardUI.kt
+│   ├── GameCardUIEvents.kt
+│   ├── GameUIModel.kt
+│   └── TeamUIModel.kt
+├── gamesection/
+│   ├── GameSectionUI.kt
+│   └── GameSectionUIModel.kt
+└── toolbar/
+├── AppToolBarUI.kt
+└── AppToolBarUIEvents.kt
+```
+
+
 ### App Module
 
 The App module is the application's entry point and runtime environment. It handles:
