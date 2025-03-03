@@ -1,11 +1,20 @@
 package com.pavan.gamebay.core.data.di
 
+import android.content.Context
 import com.google.gson.Gson
 import com.pavan.gamebay.core.data.BuildConfig
 import com.pavan.gamebay.core.domain.CoreDomainConstants
+import com.pavan.rapidqa.interceptors.delay.RapidQADelayInterceptor
+import com.pavan.rapidqa.interceptors.tag.RapidQANameTagInterceptor
+import com.pavan.rapidqa.mocker.RapidQAMockInterceptor
+import com.pavan.rapidqa.store.RapidQADataStore
+import com.pavan.rapidqa.store.RapidQAInMemoryDataStore
+import com.pavan.rapidqa.tracer.RapidQATraceRecord
+import com.pavan.rapidqa.tracer.RapidQaTracer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -57,26 +66,92 @@ object NetworkModule {
         }
     }
 
+
     /**
-     * Provides an [okhttp3.OkHttpClient] for handling network requests.
+     * Provides a [RapidQAMockInterceptor] for mocking network responses.
      *
-     * @param loggingInterceptor The logging interceptor to use.
-     * @return An instance of [okhttp3.OkHttpClient].
+     * @param context The application context.
+     * @return An instance of [RapidQAMockInterceptor].
      */
     @Singleton
     @Provides
-    fun provideHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+    fun provideMockInterceptor(
+        @ApplicationContext context: Context
+    ): RapidQAMockInterceptor {
+        return RapidQAMockInterceptor(context.assets, isGlobalMockingEnabled = { true })
+    }
+
+    /**
+     * Provides a [RapidQADataStore] for storing trace records.
+     *
+     * @return An instance of [RapidQADataStore].
+     */
+    @Singleton
+    @Provides
+    fun provideQADataStore(): RapidQADataStore<Long, RapidQATraceRecord> {
+        return RapidQAInMemoryDataStore()
+    }
+
+    /**
+     * Provides a [RapidQaTracer] for tracing network requests.
+     *
+     * @param dataStore The data store for trace records.
+     * @return An instance of [RapidQaTracer].
+     */
+    @Singleton
+    @Provides
+    fun provideQATracer(dataStore: RapidQADataStore<Long, RapidQATraceRecord>): RapidQaTracer {
+        return RapidQaTracer(dataStore)
+    }
+
+    /**
+     * Provides a [RapidQADelayInterceptor] for adding delays to network requests.
+     *
+     * @return An instance of [RapidQADelayInterceptor].
+     */
+    @Singleton
+    @Provides
+    fun provideDelayedInterceptor(): RapidQADelayInterceptor {
+        return RapidQADelayInterceptor(isDelayEnabled = { true })
+    }
+
+    /**
+     * Provides a [RapidQANameTagInterceptor] for tagging network requests.
+     *
+     * @return An instance of [RapidQANameTagInterceptor].
+     */
+    @Singleton
+    @Provides
+    fun provideNameTagInterceptor(): RapidQANameTagInterceptor {
+        return RapidQANameTagInterceptor()
+    }
+
+    /**
+     * Provides an [OkHttpClient] configured with various interceptors.
+     *
+     * @param loggingInterceptor The logging interceptor.
+     * @param rapidQAMockInterceptor The mock interceptor.
+     * @param rapidQaTracer The tracer interceptor.
+     * @param rapidQADelayInterceptor The delay interceptor.
+     * @param rapidQaNameTagInterceptor The name tag interceptor.
+     * @return An instance of [OkHttpClient].
+     */
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        rapidQAMockInterceptor: RapidQAMockInterceptor,
+        rapidQaTracer: RapidQaTracer,
+        rapidQADelayInterceptor: RapidQADelayInterceptor,
+        rapidQaNameTagInterceptor: RapidQANameTagInterceptor
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .apply {
-                if (BuildConfig.DEBUG) {
-                    addInterceptor(loggingInterceptor)
-                }
-            }
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
+        val builder = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(rapidQaNameTagInterceptor)
+            .addInterceptor(rapidQADelayInterceptor)
+            .addInterceptor(rapidQaTracer)
+            .addInterceptor(rapidQAMockInterceptor)
+        return builder.build()
     }
 
 

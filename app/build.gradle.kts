@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.pavan.gamebay"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -67,8 +67,6 @@ dependencies {
     // Material 3
     implementation(libs.material3)
 
-
-    testImplementation(libs.mockk)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

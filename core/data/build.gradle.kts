@@ -10,7 +10,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -59,6 +59,8 @@ dependencies {
     api(libs.retrofit.converter.gson)
     api(libs.retrofit.logging.interceptor)
 
+    // Rapid Qa
+    api(libs.pavan.rapidqa)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
