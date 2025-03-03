@@ -19,6 +19,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Repository for managing game schedules.
+ * This class handles fetching game schedules from remote and local data sources,
+ * and provides methods to get and refresh the game schedule.
+ */
 @Singleton
 class GameScheduleRepo @Inject constructor(
     private val remoteDataSource: GameScheduleRemoteDataSource,
@@ -27,6 +32,10 @@ class GameScheduleRepo @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher
 ) : IGameScheduleRepo {
 
+    /**
+     * Retrieves the game schedule from the local data source.
+     * @return A Flow emitting the result of the game schedule retrieval.
+     */
     override fun getGameSchedule(): Flow<Result<Schedule, MError>> {
         return localDataSource.getScheduleWithDetails().map { cachedSchedule ->
             cachedSchedule?.let {
@@ -35,6 +44,10 @@ class GameScheduleRepo @Inject constructor(
         }
     }
 
+    /**
+     * Refreshes the game schedule by fetching it from the remote data source
+     * and updating the local data source.
+     */
     override suspend fun refreshGameSchedule() {
         remoteDataSource.getGameSchedule().onSuccess { schedule ->
             withContext(ioDispatcher) {
@@ -42,7 +55,6 @@ class GameScheduleRepo @Inject constructor(
                 schedule.schedule?.let {
                     localDataSource.insertSchedule(it)
                 }
-
 
                 // Insert game sections
                 schedule.gameSections.forEach { gameSection ->
@@ -55,7 +67,6 @@ class GameScheduleRepo @Inject constructor(
                         localDataSource.insertGames(games)
                     }
                 }
-
             }
         }.onError {
             Log.e(TAG, "Error refreshing game schedule: $it")

@@ -5,50 +5,83 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity
-data class ScheduleEntity(
-    @PrimaryKey
-    val id: Long = 0L,
-    val defaultGameId: String = "",
-    @Embedded val team: TeamEntity = TeamEntity(),
-)
-
-
-@Entity
-data class GameSectionEntity(
-    @PrimaryKey
-    val heading: String = "",
-    val scheduleId: Long = 0,
-)
-
-
+/**
+ * Entity class representing a game in the local database.
+ */
 @Entity
 data class GameEntity(
+    /**
+     * Primary key for the game entity.
+     */
     @PrimaryKey val id: Long = 0,
-    val gameSectionHeading: String = "",
-    val week: String = "",
-    val tv: String = "",
-    val radio: String = "",
-    val wlt: String = "",
-    val gameState: String = "",
-    val awayScore: String = "",
-    val homeScore: String = "",
-    val type: String = "",
-    val dateText: String = "",
-    val dateTime: String = "",
-    val dateTimestamp: String = "",
-    @Embedded(prefix = "opponent_") val opponent: TeamEntity = TeamEntity(),
-)
 
-@Entity
-data class TeamEntity(
-    @PrimaryKey val triCode: String = "",
-    val fullName: String = "",
-    val name: String = "",
-    val city: String = "",
-    val record: String = "",
-    val wins: Int = 0,
-    val losses: Int = 0,
-    val winPercentage: Double = 0.0,
-    val primaryColor: String = ""
+    /**
+     * Heading for the game section.
+     */
+    val gameSectionHeading: String = "",
+
+    /**
+     * Week of the game.
+     */
+    val week: String = "",
+
+    /**
+     * Label for the game.
+     */
+    val label: String = "",
+
+    /**
+     * TV channel broadcasting the game.
+     */
+    val tv: String = "",
+
+    /**
+     * Radio station broadcasting the game.
+     */
+    val radio: String = "",
+
+    /**
+     * Win-Loss-Tie record.
+     */
+    val wlt: String = "",
+
+    /**
+     * Current state of the game.
+     */
+    val gameState: String = "",
+
+    /**
+     * Score of the away team.
+     */
+    val awayScore: String = "",
+
+    /**
+     * Score of the home team.
+     */
+    val homeScore: String = "",
+
+    /**
+     * Type of the game.
+     */
+    val type: String = "",
+
+    /**
+     * Text representation of the game date.
+     */
+    val dateText: String = "",
+
+    /**
+     * Date and time of the game.
+     */
+    val dateTime: String = "",
+
+    /**
+     * Timestamp of the game date.
+     */
+    val dateTimestamp: String = "",
+
+    /**
+     * Embedded opponent team entity with a prefix.
+     */
+    @Embedded(prefix = "opponent_") val opponent: TeamEntity = TeamEntity(),
 )

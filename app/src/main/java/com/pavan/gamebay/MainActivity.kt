@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.pavan.gamebay.core.presentaion.designsystem.ui.theme.GameBayTheme
 import com.pavan.gamebay.feature.gameschedule.presentation.screens.GameScheduleScreen
+import com.pavan.gamebay.feature.gameschedule.presentation.screens.components.toolbar.AppToolBarUI
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -20,7 +21,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GameBayTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        AppToolBarUI()
+                    }
+                ) { innerPadding ->
                     GameScheduleScreen(modifier = Modifier.padding(innerPadding))
                 }
             }

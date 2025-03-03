@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.material3)
 
 
+    testImplementation(libs.mockk)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
