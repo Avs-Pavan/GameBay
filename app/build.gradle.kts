@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -58,6 +59,8 @@ dependencies {
 
     // Hilt navigation
     implementation(libs.hilt.android)
+    implementation(libs.androidx.profileinstaller)
+    "baselineProfile"(project(":baselineprofile"))
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
